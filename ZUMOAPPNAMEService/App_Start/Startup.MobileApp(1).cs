@@ -26,7 +26,7 @@ namespace ZUMOAPPNAMEService
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer<ZUMOAPPNAMEContext>(null);
+            Database.SetInitializer(new ZUMOAPPNAMEInitializer());
 
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             // Database.SetInitializer<ZUMOAPPNAMEContext>(null);
@@ -53,15 +53,15 @@ namespace ZUMOAPPNAMEService
     {
         protected override void Seed(ZUMOAPPNAMEContext context)
         {
-            List<Assets> Asset = new List<Assets>
+            List<TodoItem> todoItems = new List<TodoItem>
             {
-                new Assets { Id = Guid.NewGuid().ToString(), Name = "First item", complete = false },
-                new Assets { Id = Guid.NewGuid().ToString(), Name = "Second item", complete = false },
+                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
+                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
             };
 
-            foreach (Assets Assetlist in Asset)
+            foreach (TodoItem todoItem in todoItems)
             {
-                context.Set<Assets>().Add(Assetlist);
+                context.Set<TodoItem>().Add(todoItem);
             }
 
             base.Seed(context);
