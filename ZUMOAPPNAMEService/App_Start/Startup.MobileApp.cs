@@ -55,8 +55,8 @@ namespace ZUMOAPPNAMEService
         {
             List<Assets> Asset = new List<Assets>
             {
-                new Assets { Id = Guid.NewGuid().ToString(), Name = "First item", complete = false },
-                new Assets { Id = Guid.NewGuid().ToString(), Name = "Second item", complete = false },
+                new Assets { Id = Guid.NewGuid().ToString(), substation_code = "First Code",plant_number = "plant Number" ,asset_eq_no = 1 ,eq_status = "First" ,serial_number = "1234" ,modifier_code = "123" ,location_equipment_number = 1 ,component_code= "First" , warrantydate = new DateTime(2017, 1, 18),equipment_age = 1 ,stock_code = "First" ,po_no = "First" ,rated_volts = 1 ,nominal_volts=1 ,manufacture_name="First" ,specifiaction_title = "First" ,specification_no= "First" ,specifiaction_item_no = "First" ,last_install_date = "First" ,equipment_class = "First" ,Equimpent_class_decription = "First" , complete = false },
+                //new Assets { Id = Guid.NewGuid().ToString(), substation_code = "Second Code", complete = false },
             };
 
             foreach (Assets Assetlist in Asset)

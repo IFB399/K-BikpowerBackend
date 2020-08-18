@@ -7,7 +7,6 @@ namespace ZUMOAPPNAMEService.DataObjects
     {
         public string substation_code { get; set; }
 
-        public string Name { get; set; }
         public string plant_number { get; set; }
 
         public int asset_eq_no { get; set; }
