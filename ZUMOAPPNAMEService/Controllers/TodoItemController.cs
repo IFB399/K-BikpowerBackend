@@ -1,20 +1,25 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
-using ZUMOAPPNAMEService.DataObjects;
-using ZUMOAPPNAMEService.Models;
+using Microsoft.Azure.Mobile.Server.Config;
+using Microsoft.Azure.NotificationHubs;
+//using ZUMOAPPNAMEService.DataObjects;
 
-namespace ZUMOAPPNAMEService.Controllers
+
+namespace ZUMOAPPNAMEService
 {
+    [Authorize]
     public class TodoItemController : TableController<Assets>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            ZUMOAPPNAMEContext context = new ZUMOAPPNAMEContext();
+            todolist_completeContext context = new todolist_completeContext();
             DomainManager = new EntityDomainManager<Assets>(context, Request);
         }
 
@@ -36,10 +41,82 @@ namespace ZUMOAPPNAMEService.Controllers
             return UpdateAsync(id, patch);
         }
 
+        //// Post
+        //public async Task<IHttpActionResult> PostTodoItem(TodoItem item)
+        //{
+        //    TodoItem current = await InsertAsync(item);
+
+        //    // Get the settings for the server project.
+        //    HttpConfiguration config = this.Configuration;
+        //    MobileAppSettingsDictionary settings =
+        //        this.Configuration.GetMobileAppSettingsProvider().GetMobileAppSettings();
+
+        //    // Get the Notification Hubs credentials for the Mobile App.
+        //    string notificationHubName = settings.NotificationHubName;
+        //    string notificationHubConnection = settings
+        //        .Connections[MobileAppSettingsKeys.NotificationHubConnectionString].ConnectionString;
+
+        //    // Create the notification hub client.
+        //    NotificationHubClient hub = NotificationHubClient
+        //        .CreateClientFromConnectionString(notificationHubConnection, notificationHubName);
+
+        //    // Define a WNS payload
+        //    var windowsToastPayload = @"<toast><visual><binding template=""ToastText01""><text id=""1"">"
+        //                            + item.Text + @"</text></binding></visual></toast>";
+        //    try
+        //    {
+        //        // Send the push notification.
+        //        var result = await hub.SendWindowsNativeNotificationAsync(windowsToastPayload);
+
+        //        // Write the success result to the logs.
+        //        config.Services.GetTraceWriter().Info(result.State.ToString());
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        // Write the failure result to the logs.
+        //        config.Services.GetTraceWriter()
+        //            .Error(ex.Message, null, "Push.SendAsync Error");
+        //    }
+        //    return CreatedAtRoute("Tables", new { id = current.Id }, current);
+        //}
+
         // POST tables/TodoItem
+        // Templates push
         public async Task<IHttpActionResult> PostTodoItem(Assets item)
         {
             Assets current = await InsertAsync(item);
+
+            // Get the settings for the server project.
+            HttpConfiguration config = this.Configuration;
+            MobileAppSettingsDictionary settings =
+                this.Configuration.GetMobileAppSettingsProvider().GetMobileAppSettings();
+
+            // Get the Notification Hubs credentials for the Mobile App.
+            string notificationHubName = settings.NotificationHubName;
+            string notificationHubConnection = settings
+                .Connections[MobileAppSettingsKeys.NotificationHubConnectionString].ConnectionString;
+
+            // Create the notification hub client.
+            NotificationHubClient hub = NotificationHubClient
+                .CreateClientFromConnectionString(notificationHubConnection, notificationHubName);
+
+            // Get the current user SID and create a tag for the current user.
+            var claimsPrincipal = this.User as ClaimsPrincipal;
+            string sid = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userTag = "_UserId:" + sid;
+
+            // Build a dictionary for the template with the item message text.
+            var notification = new Dictionary<string, string> { { "message", item.Id } };
+
+            try
+            {
+                // Send a template notification to the user ID.
+                await hub.SendTemplateNotificationAsync(notification, userTag);
+            }
+            catch (System.Exception)
+            {
+                throw new HttpResponseException(System.Net.HttpStatusCode.InternalServerError);
+            }
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 

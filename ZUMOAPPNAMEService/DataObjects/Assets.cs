@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Mobile.Server;
 using System;
 
-namespace ZUMOAPPNAMEService.DataObjects
+namespace ZUMOAPPNAMEService
 {
     public class Assets : EntityData
     {
