@@ -26,14 +26,14 @@ namespace ZUMOAPPNAMEService
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer<ZUMOAPPNAMEContext>(null);
+            Database.SetInitializer(new ZUMOAPPNAMEInitializer());
 
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             // Database.SetInitializer<ZUMOAPPNAMEContext>(null);
 
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
-            if (string.IsNullOrEmpty(settings.HostName))
+            /*if (string.IsNullOrEmpty(settings.HostName))
             {
                 // This middleware is intended to be used locally for debugging. By default, HostName will
                 // only have a value when running in an App Service application.
@@ -45,7 +45,7 @@ namespace ZUMOAPPNAMEService
                     TokenHandler = config.GetAppServiceTokenHandler()
                 });
             }
-            app.UseWebApi(config);
+            app.UseWebApi(config); */
         }
     }
 

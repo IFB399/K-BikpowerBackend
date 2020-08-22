@@ -3,7 +3,7 @@
     "mssql1": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/kbikpower/databases/K-bikpower",
       "type": "mssql.azure",
-      "connectionId": "DataBase",
+      "connectionId": "kbikpower",
       "secretStore": "AzureAppSettings"
     }
   }
