@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "Name=MS_TableConnectionString"
+      "connectionId": "MS_TableConnectionString"
     }
   }
 }

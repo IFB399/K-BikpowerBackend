@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -7,8 +6,9 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using ZUMOAPPNAMEService.DataObjects;
+using ZUMOAPPNAMEService.Models;
 using Owin;
-
 
 namespace ZUMOAPPNAMEService
 {
@@ -26,10 +26,10 @@ namespace ZUMOAPPNAMEService
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer(new todolist_completeInitializer());
+            Database.SetInitializer(new ZUMOAPPNAMEInitializer());
 
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
-            // Database.SetInitializer<todolist_completeContext>(null);
+            // Database.SetInitializer<ZUMOAPPNAMEContext>(null);
 
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
@@ -49,22 +49,26 @@ namespace ZUMOAPPNAMEService
         }
     }
 
-    public class todolist_completeInitializer : CreateDatabaseIfNotExists<todolist_completeContext>
+    public class ZUMOAPPNAMEInitializer : CreateDatabaseIfNotExists<ZUMOAPPNAMEContext>
     {
-        protected override void Seed(todolist_completeContext context)
+        protected override void Seed(ZUMOAPPNAMEContext context)
         {
-            List<Assets> todoItems = new List<Assets>
+            List<Asset> assets = new List<Asset>
             {
-                new Assets { Id = Guid.NewGuid().ToString(), substation_code = "First Code",plant_number = "plant Number" ,asset_eq_no = 1 ,eq_status = "First" ,serial_number = "1234" ,modifier_code = "123" ,location_equipment_number = 1 ,component_code= "First" , warrantydate = new DateTime(2017, 1, 18),equipment_age = 1 ,stock_code = "First" ,po_no = "First" ,rated_volts = 1 ,nominal_volts=1 ,manufacture_name="First" ,specifiaction_title = "First" ,specification_no= "First" ,specifiaction_item_no = "First" ,last_install_date = "First" ,equipment_class = "First" ,Equimpent_class_decription = "First" , complete = false },
-                //new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+                //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "yeet", Plant_number = "a plant number", Asset_eq_no=666 },
+                //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "a", Plant_number = "b", Asset_eq_no = 12, Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", Warranty_date = new DateTime(2017, 1, 18), Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p"},
+                //took out warranty date because it prevented adding assets
+                new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "a", Plant_number = "b", Asset_eq_no = 12, Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p"},
             };
+        
 
-            foreach (Assets todoItem in todoItems)
+            foreach (Asset a in assets)
             {
-                context.Set<Assets>().Add(todoItem);
+                context.Set<Asset>().Add(a);
             }
 
             base.Seed(context);
         }
     }
 }
+

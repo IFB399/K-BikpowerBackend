@@ -3,11 +3,11 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Tables;
+using ZUMOAPPNAMEService.DataObjects;
 
-
-namespace ZUMOAPPNAMEService
+namespace ZUMOAPPNAMEService.Models
 {
-    public class todolist_completeContext : DbContext
+    public class ZUMOAPPNAMEContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -16,13 +16,13 @@ namespace ZUMOAPPNAMEService
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
-        private const string connectionStringName = "Name=MS_TableConnectionString";
+        private const string connectionStringName = "MS_TableConnectionString";
 
-        public todolist_completeContext() : base(connectionStringName)
+        public ZUMOAPPNAMEContext() : base(connectionStringName)
         {
-        }
+        } 
 
-        public DbSet<Assets> TodoItems { get; set; }
+        public DbSet<Asset> TodoItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
