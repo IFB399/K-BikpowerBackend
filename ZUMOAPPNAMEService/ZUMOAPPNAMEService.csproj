@@ -152,9 +152,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\SubstationController .cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataObjects\Asset.cs" />
+    <Compile Include="DataObjects\Substation_Codes.cs" />
     <Compile Include="Models\ZUMOAPPNAMEContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

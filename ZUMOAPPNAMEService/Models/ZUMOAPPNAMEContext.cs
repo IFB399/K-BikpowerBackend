@@ -23,6 +23,7 @@ namespace ZUMOAPPNAMEService.Models
         } 
 
         public DbSet<Asset> TodoItems { get; set; }
+        public DbSet<Substation_Codes> SubItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
