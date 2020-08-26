@@ -9,42 +9,42 @@ using ZUMOAPPNAMEService.Models;
 
 namespace ZUMOAPPNAMEService.Controllers
 {
-    public class SubstationController : TableController<Substation_Codes>
+    public class SubstationController : TableController<Substations>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            ZUMOAPPNAMEContext context = new ZUMOAPPNAMEContext();
-            DomainManager = new EntityDomainManager<Substation_Codes>(context, Request);
+            SubstationContext context = new SubstationContext();
+            DomainManager = new EntityDomainManager<Substations>(context, Request);
         }
 
         // GET tables/TodoItem
-        public IQueryable<Substation_Codes> GetAllTodoItems()
+        public IQueryable<Substations> GetAllSubItems()
         {
             return Query();
         }
 
         // GET tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<Substation_Codes> GetTodoItem(string id)
+        public SingleResult<Substations> GetSubItem(string id)
         {
             return Lookup(id);
         }
 
         // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<Substation_Codes> PatchTodoItem(string id, Delta<Substation_Codes> patch)
+        public Task<Substations> PatchSubItem(string id, Delta<Substations> patch)
         {
             return UpdateAsync(id, patch);
         }
 
         // POST tables/TodoItem
-        public async Task<IHttpActionResult> PostTodoItem(Substation_Codes a)
+        public async Task<IHttpActionResult> PostSubItem(Substations a)
         {
-            Substation_Codes current = await InsertAsync(a);
-            return CreatedAtRoute("Tables", new { id = current.Id }, current);
+            Substations current = await InsertAsync(a);
+            return CreatedAtRoute("Substations", new { id = current.Id }, current); //was Tables
         }
 
         // DELETE tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task DeleteTodoItem(string id)
+        public Task DeleteSubItem(string id)
         {
             return DeleteAsync(id);
         }

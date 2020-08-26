@@ -3,7 +3,7 @@ using System;
 
 namespace ZUMOAPPNAMEService
 {
-    public class Substation_Codes : EntityData
+    public class Substations : EntityData
     {
         public string Substation_Code { get; set; }
         public string Substation_Name { get; set; }

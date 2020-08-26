@@ -72,22 +72,20 @@ namespace ZUMOAPPNAMEService
         }
     }
 
-    public class ZUMOAPPNAMEInitializerSubstation : CreateDatabaseIfNotExists<ZUMOAPPNAMEContext>
+    public class ZUMOAPPNAMEInitializerSubstation : CreateDatabaseIfNotExists<SubstationContext>
     {
-        protected override void Seed(ZUMOAPPNAMEContext context)
+        protected override void Seed(SubstationContext context)
         {
-            List<Substation_Codes> subs = new List<Substation_Codes>
+            List<Substations> subs = new List<Substations>
             {
-                //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "yeet", Plant_number = "a plant number", Asset_eq_no=666 },
-                //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "a", Plant_number = "b", Asset_eq_no = 12, Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", Warranty_date = new DateTime(2017, 1, 18), Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p"},
-                //took out warranty date because it prevented adding assets
-                new Substation_Codes { Id = Guid.NewGuid().ToString(), Substation_Code = "a", Substation_Name = "brenton Rocks", Area = "idontknow" },
+               
+                new Substations { Id = Guid.NewGuid().ToString(), Substation_Code = "a", Substation_Name = "brenton Rocks", Area = "idontknow" },
             };
 
 
-            foreach (Substation_Codes s in subs)
+            foreach (Substations s in subs)
             {
-                context.Set<Substation_Codes>().Add(s);
+                context.Set<Substations>().Add(s);
             }
 
             base.Seed(context);

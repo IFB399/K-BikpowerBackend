@@ -7,7 +7,7 @@ using ZUMOAPPNAMEService.DataObjects;
 
 namespace ZUMOAPPNAMEService.Models
 {
-    public class ZUMOAPPNAMEContext : DbContext
+    public class SubstationContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -18,12 +18,12 @@ namespace ZUMOAPPNAMEService.Models
 
         private const string connectionStringName = "MS_TableConnectionString";
 
-        public ZUMOAPPNAMEContext() : base(connectionStringName)
+        public SubstationContext() : base(connectionStringName)
         {
         } 
 
-        public DbSet<Asset> TodoItems { get; set; }
         
+        public DbSet<Substations> SubItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
