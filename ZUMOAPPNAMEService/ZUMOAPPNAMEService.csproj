@@ -155,10 +155,12 @@
     <Compile Include="Controllers\DecommissionDataController.cs" />
     <Compile Include="Controllers\SubstationController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataObjects\Asset.cs" />
     <Compile Include="DataObjects\DecommissionData.cs" />
     <Compile Include="DataObjects\Substation.cs" />
+    <Compile Include="DataObjects\User.cs" />
     <Compile Include="Models\ZUMOAPPNAMEContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

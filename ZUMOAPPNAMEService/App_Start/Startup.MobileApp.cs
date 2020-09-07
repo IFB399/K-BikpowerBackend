@@ -9,6 +9,11 @@ using Microsoft.Azure.Mobile.Server.Config;
 using ZUMOAPPNAMEService.DataObjects;
 using ZUMOAPPNAMEService.Models;
 using Owin;
+using System.Security.Cryptography;
+
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ZUMOAPPNAMEService
 {
@@ -65,20 +70,23 @@ namespace ZUMOAPPNAMEService
                     Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", 
                     Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p", Status="Added", Decommission_form_id="1238213"},
             };
+
+            foreach (Asset a in assets)
+            {
+                context.Set<Asset>().Add(a);
+            }
+
             List<Substation> subs = new List<Substation>
             {
 
                 new Substation { Id = Guid.NewGuid().ToString(), Substation_Code = "first sub", Substation_Name = "name", Area = "area" },
             };
 
-            foreach (Asset a in assets)
-            {
-                context.Set<Asset>().Add(a);
-            }
             foreach (Substation s in subs)
             {
                 context.Set<Substation>().Add(s);
             }
+
             List<DecommissionData> dforms = new List<DecommissionData>
             {
                 new DecommissionData { Id = Guid.NewGuid().ToString(), Date="first decommission", Details="b", RegionName="C", Location="d", MovedTo="e", WorkOrderNumber=3},
@@ -88,6 +96,37 @@ namespace ZUMOAPPNAMEService
             foreach (DecommissionData d in dforms)
             {
                 context.Set<DecommissionData>().Add(d);
+            }
+            
+            string GenerateSalt()
+            {
+                byte[] buf = new byte[32];
+                (new RNGCryptoServiceProvider()).GetBytes(buf);
+                return Convert.ToBase64String(buf);
+            }
+            
+            string HashPassword(string pass, string salt)
+            {
+                SHA256Managed hash = new SHA256Managed();
+                byte[] utf8 = UTF8Encoding.UTF8.GetBytes(pass + salt);
+                StringBuilder s = new StringBuilder(hash.ComputeHash(utf8).Length * 2);
+                foreach (byte b in hash.ComputeHash(utf8))
+                    s.Append(b.ToString("x2"));
+                return s.ToString();
+            }
+
+            string firstSalt = GenerateSalt();
+            string firstPassword = HashPassword("1234", firstSalt);
+            
+
+            List<User> users = new List<User>
+            {
+                new User { Id = Guid.NewGuid().ToString(), Username="master", Email = "abc@hotmail.com", Permission = "Administrator", Password = firstPassword, Salt=firstSalt },
+            };
+
+            foreach (User u in users)
+            {
+                context.Set<User>().Add(u);
             }
 
             base.Seed(context);

@@ -33,6 +33,8 @@ namespace ZUMOAPPNAMEService.Models
         public DbSet<Substation> Substations { get; set; }
 
         public DbSet<DecommissionData> Decommissions { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 
     

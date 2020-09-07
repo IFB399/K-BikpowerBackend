@@ -52,5 +52,9 @@ namespace ZUMOAPPNAMEService.DataObjects
         public string Status { get; set; } //recently added
 
         public string Decommission_form_id { get; set; } //idk what im doing really
+
+        public string Commission_form_id { get; set; } //stores the latest commission form id?
+
+        public string Modified_by { get; set; } //keeps a record of the user that last modified it?
     }
 }
