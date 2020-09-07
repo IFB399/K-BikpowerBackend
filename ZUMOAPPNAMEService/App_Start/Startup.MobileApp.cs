@@ -27,7 +27,7 @@ namespace ZUMOAPPNAMEService
 
             // Use Entity Framework Code First to create database tables based on your DbContext
             Database.SetInitializer(new ZUMOAPPNAMEInitializer());
-            Database.SetInitializer(new ZUMOAPPNAMEInitializerSubstation());
+            //Database.SetInitializer(new ZUMOAPPNAMEInitializerSubstation());
 
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             // Database.SetInitializer<ZUMOAPPNAMEContext>(null);
@@ -59,19 +59,41 @@ namespace ZUMOAPPNAMEService
                 //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "yeet", Plant_number = "a plant number", Asset_eq_no=666 },
                 //new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "a", Plant_number = "b", Asset_eq_no = 12, Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", Warranty_date = new DateTime(2017, 1, 18), Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p"},
                 //took out warranty date because it prevented adding assets
-                new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "a", Plant_number = "b", Asset_eq_no = 12, Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p"},
+                new Asset { Id = Guid.NewGuid().ToString(), Substation_code = "firstt asset", Plant_number = "b", Asset_eq_no = 12, 
+                    Eq_status = "c", Serial_number = "d", Modifier_code = "e", Location_equipment_number = 14, Component_code= "f", 
+                    Equipment_age = 15, Stock_code = "g", Po_no = "h", Rated_volts = 2, Nominal_volts=3, Manufacturer_name="i", 
+                    Manufacturer_type="j", Specification_title = "k", Specification_no= "l", Specification_item_no = "m", 
+                    Last_install_date = "n", Equipment_class = "o", Equimpent_class_decription = "p", Status="Added", Decommission_form_id="1238213"},
             };
-        
+            List<Substation> subs = new List<Substation>
+            {
+
+                new Substation { Id = Guid.NewGuid().ToString(), Substation_Code = "first sub", Substation_Name = "name", Area = "area" },
+            };
 
             foreach (Asset a in assets)
             {
                 context.Set<Asset>().Add(a);
             }
+            foreach (Substation s in subs)
+            {
+                context.Set<Substation>().Add(s);
+            }
+            List<DecommissionData> dforms = new List<DecommissionData>
+            {
+                new DecommissionData { Id = Guid.NewGuid().ToString(), Date="first decommission", Details="b", RegionName="C", Location="d", MovedTo="e", WorkOrderNumber=3},
+            };
+
+
+            foreach (DecommissionData d in dforms)
+            {
+                context.Set<DecommissionData>().Add(d);
+            }
 
             base.Seed(context);
         }
     }
-
+    /*
     public class ZUMOAPPNAMEInitializerSubstation : CreateDatabaseIfNotExists<SubstationContext>
     {
         protected override void Seed(SubstationContext context)
@@ -91,5 +113,6 @@ namespace ZUMOAPPNAMEService
             base.Seed(context);
         }
     }
+    */
 }
 

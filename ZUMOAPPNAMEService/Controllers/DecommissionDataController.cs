@@ -9,44 +9,46 @@ using ZUMOAPPNAMEService.Models;
 
 namespace ZUMOAPPNAMEService.Controllers
 {
-    public class SubstationController : TableController<Substations>
+    public class DecommissionDataController : TableController<DecommissionData>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            SubstationContext context = new SubstationContext();
-            DomainManager = new EntityDomainManager<Substations>(context, Request);
+            ZUMOAPPNAMEContext context = new ZUMOAPPNAMEContext();
+            DomainManager = new EntityDomainManager<DecommissionData>(context, Request);
+
         }
 
         // GET tables/TodoItem
-        public IQueryable<Substations> GetAllSubItems()
+        public IQueryable<DecommissionData> GetAllDecommissionDatas()
         {
             return Query();
         }
 
         // GET tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<Substations> GetSubItem(string id)
+        public SingleResult<DecommissionData> GetDecommissionData(string id)
         {
             return Lookup(id);
         }
 
         // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<Substations> PatchSubItem(string id, Delta<Substations> patch)
+        public Task<DecommissionData> PatchDecommissionData(string id, Delta<DecommissionData> patch)
         {
             return UpdateAsync(id, patch);
         }
 
         // POST tables/TodoItem
-        public async Task<IHttpActionResult> PostSubItem(Substations a)
+        public async Task<IHttpActionResult> PostDecommissionData(DecommissionData a)
         {
-            Substations current = await InsertAsync(a);
-            return CreatedAtRoute("Substations", new { id = current.Id }, current); //was Tables
+            DecommissionData current = await InsertAsync(a);
+            return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
         // DELETE tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task DeleteSubItem(string id)
+        public Task DeleteDecommissionData(string id)
         {
             return DeleteAsync(id);
         }
+
     }
 }

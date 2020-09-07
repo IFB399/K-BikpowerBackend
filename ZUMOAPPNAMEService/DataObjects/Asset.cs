@@ -48,5 +48,9 @@ namespace ZUMOAPPNAMEService.DataObjects
         public string Equipment_class { get; set; }
 
         public string Equimpent_class_decription { get; set; }
+
+        public string Status { get; set; } //recently added
+
+        public string Decommission_form_id { get; set; } //idk what im doing really
     }
 }

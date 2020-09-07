@@ -22,15 +22,18 @@ namespace ZUMOAPPNAMEService.Models
         {
         } 
 
-        public DbSet<Asset> TodoItems { get; set; }
-        
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Add(
                 new AttributeToColumnAnnotationConvention<TableColumnAttribute, string>(
                     "ServiceTableColumn", (property, attributes) => attributes.Single().ColumnType.ToString()));
         }
+
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<Substation> Substations { get; set; }
+
+        public DbSet<DecommissionData> Decommissions { get; set; }
     }
 
+    
 }
